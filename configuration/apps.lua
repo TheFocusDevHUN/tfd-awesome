@@ -1,7 +1,7 @@
 local dpi = require("beautiful.xresources").apply_dpi
 local menubar = require("menubar")
 
-local apps = {
+apps = {
 
 	-- Your default terminal
 	terminal = "alacritty",
