@@ -11,9 +11,6 @@
 # is intended to be a copy of this file
 # to allow out of tree autostart programs
 APPS=(
-    # keepassxc
-    # kdeconnect-indicator
-    # radeon-profile
     # $HOME/.config/awesomestart
     udiskie
 )
@@ -24,14 +21,27 @@ KILL=(
     # nextcloud
 )
 
+# Flatpak applications to kill cleanly on reload
+FLATPAKS=(
+    com.discordapp.Discord
+    # Add more Flatpak app IDs here if needed
+)
+
 # First kill lingering apps
 for app in "${APPS[@]}"
 do
-    kill -9 $(pidof $app)
+    kill -9 $(pidof $app 2>/dev/null)
 done
+
 for app in "${KILL[@]}"
 do
-    kill -9 $(pidof $app)
+    kill -9 $(pidof $app 2>/dev/null)
+done
+
+# Kill Flatpak apps gracefully
+for app in "${FLATPAKS[@]}"
+do
+    flatpak kill "$app" 2>/dev/null
 done
 
 # Start new instances

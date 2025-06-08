@@ -7,6 +7,10 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 
+--awful.spawn.with_shell(
+--	"xrandr --output DP-2 --mode 2560x1080 --pos 0x1080 --primary --output HDMI-1 --mode 1920x1080 --pos 320x0"
+--)
+
 -- Widget and layout library
 local wibox = require("wibox")
 
@@ -18,21 +22,17 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
-
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "gtk/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/" .. "materia/theme.lua")
 
 -- Init all modules (You can add/remove active modules here)
+require("modules.set-monitor")
 require("modules.auto-start")
 require("modules.sloppy-focus")
 require("modules.set-wallpaper")
 
 -- Setup UI Elements
 require("ui")
-
 -- Setup all configurations
 require("configuration.tags")
 require("configuration.client")

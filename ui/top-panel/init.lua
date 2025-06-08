@@ -3,28 +3,43 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
 
-configuration = require("configuration.config")
+local configuration = require("configuration.config")
 require("widgets.top-panel")
 
+local function get_primary_screen()
+	for s in screen do
+		if s.primary then
+			return s
+		end
+	end
+	-- fallback to screen 1 if no primary flagged
+	return screen[1]
+end
+
+local primary = get_primary_screen()
+
 local TopPanel = function(s)
-	-- Wiboxes are much more flexible than wibars simply for the fact that there are no defaults, however if you'd rather have the ease of a wibar you can replace this with the original wibar code
+	if configuration.top_panel.only_on_primary and s ~= primary then
+		return
+	end
 	local panel = wibox({
 		ontop = true,
+		visible = true,
 		screen = s,
-		height = configuration.toppanel_height,
+		height = configuration.top_panel.height,
 		width = s.geometry.width,
 		x = s.geometry.x,
 		y = s.geometry.y,
 		stretch = false,
-		bg = beautiful.background,
+		bg = beautiful.bg_normal,
 		fg = beautiful.fg_normal,
 		struts = {
-			top = configuration.toppanel_height,
+			top = configuration.top_panel.height,
 		},
 	})
 
 	panel:struts({
-		top = configuration.toppanel_height,
+		top = configuration.top_panel.height,
 	})
 	--
 
@@ -32,16 +47,14 @@ local TopPanel = function(s)
 		layout = wibox.layout.align.horizontal,
 		{ -- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			s.mytaglist,
-			s.mypromptbox,
+			s.taglist,
 		},
-		s.mytasklist, -- Middle widget
+		s.tasklist, -- Middle widget
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			mykeyboardlayout,
 			wibox.widget.systray(),
-			mytextclock,
-			s.mylayoutbox,
+			s.layoutbox,
+			Clock,
 		},
 	})
 

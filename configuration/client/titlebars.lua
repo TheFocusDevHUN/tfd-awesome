@@ -3,7 +3,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 
 -- Double click titlebar timer, how long it takes for a 2 clicks to be considered a double click
-function double_click_event_handler(double_click_event)
+local function double_click_event_handler(double_click_event)
 	if double_click_timer then
 		double_click_timer:stop()
 		double_click_timer = nil

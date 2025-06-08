@@ -4,15 +4,16 @@ local menubar = require("menubar")
 apps = {
 
 	-- Your default terminal
-	terminal = "alacritty",
+	terminal = "wezterm",
 
 	-- Your default text editor
 	editor = os.getenv("EDITOR") or "nvim",
-
-	-- editor_cmd = terminal .. " -e " .. editor,
+	screenshot = "flameshot",
+	screenshot_area = "flameshot gui",
 
 	-- Your default file explorer
 	explorer = "thunar",
+	rofi = "rofi -show drun",
 }
 
 apps.editor_cmd = apps.terminal .. " -e " .. apps.editor

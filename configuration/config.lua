@@ -18,9 +18,12 @@ end)
 
 -- You can store common configuration variables here, or completely get rid of this file.
 local configuration = {
-
-	-- Width of the top panel
-	toppanel_height = dpi(24),
+	top_panel = {
+		-- Width of the top panel
+		height = dpi(35),
+		-- Show only on primary screen. It will be on all screens when set to false.
+		only_on_primary = true,
+	},
 }
 
 return configuration
